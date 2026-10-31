@@ -30,6 +30,7 @@ function Profiles({ previewData = null, backAction = null }) {
   const [showShareModal, setShowShareModal] = useState(false);
   const [profileUrl, setProfileUrl] = useState("");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
+  const [bannerBgUrl, setBannerBgUrl] = useState("");
   const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
@@ -54,6 +55,8 @@ function Profiles({ previewData = null, backAction = null }) {
           `https://images.heyitzme.com/${profileData.profileImage}`,
         );
       }
+
+      setBannerBgUrl(`https://images.heyitzme.com/${profileData.bannerBg}`);
 
       setProfileUrl(`https://heyitzme.com/${profileData.username}`);
       applyTheme(profileData.theme);
@@ -123,7 +126,7 @@ function Profiles({ previewData = null, backAction = null }) {
               <div
                 className="header-banner"
                 style={{
-                  "--banner-bg": `url(${headerBackgrounds[profileData.bannerBg?.replace(/\.\w+$/, "")] ?? ""})`,
+                  "--banner-bg": `url(${bannerBgUrl ?? ""})`,
                 }}
               >
                 <img

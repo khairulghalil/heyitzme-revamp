@@ -162,6 +162,7 @@ function ProfileBuilder({ type }) {
       }
 
       if (profile) {
+        console.log(profile);
         setBuilderProfile({ ...profile, blobUrl: null });
         setProfilePictureUrl(
           `https://images.heyitzme.com/${profile.profileImage}`,
