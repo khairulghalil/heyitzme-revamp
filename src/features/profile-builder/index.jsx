@@ -39,6 +39,7 @@ function ProfileBuilder({ type }) {
   const [builderProfile, setBuilderProfile] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [profilePictureFile, setProfilePictureFile] = useState(null);
+  const [bannerBgUrl, setBannerBgUrl] = useState("");
   const [cropImageSrc, setCropImageSrc] = useState(null);
   const [showCropModal, setShowCropModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -168,6 +169,7 @@ function ProfileBuilder({ type }) {
           `https://images.heyitzme.com/${profile.profileImage}`,
         );
         applyTheme(profile.theme, builder);
+        setBannerBgUrl(`https://images.heyitzme.com/${profile.bannerBg}`);
       }
     }
   }, []);
@@ -191,8 +193,11 @@ function ProfileBuilder({ type }) {
             <BackButton action={() => navigate(`/${username}`)} />
           </span>
           <div className="builder-wrapper">
-            <div className="builder-card p-4">
-              <div className="text-center">
+            <div className="builder-card">
+              <div
+                className="header-banner"
+                style={{ "--banner-bg": `url(${bannerBgUrl})` }}
+              >
                 <div className="profile-picture-wrapper">
                   <img
                     id="profile-picture"
@@ -220,7 +225,7 @@ function ProfileBuilder({ type }) {
               </div>
 
               <div className="form-wrapper">
-                <Form.Group className="mb-3 mt-5" controlId="name">
+                <Form.Group className="mb-3 mt-1" controlId="name">
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
