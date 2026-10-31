@@ -1,0 +1,12 @@
+.footer {
+  position: relative;
+  z-index: 3;
+  justify-content: space-around;
+  color: white;
+  background-color: black;
+
+  span {
+    color: gray;
+    font-size: 15px;
+  }
+}

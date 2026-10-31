@@ -1,0 +1,28 @@
+.login-body {
+  img {
+    width: 70%;
+  }
+
+  label {
+    color: white;
+  }
+
+  p {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .form-control {
+    background-color: var(--bs-dark-text-emphasis);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+  }
+
+  .form-control:focus {
+    box-shadow: none !important;
+    background-color: var(--bs-dark-text-emphasis);
+    color: white;
+  }
+}
