@@ -32,11 +32,18 @@ export const getProfile = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
   "profile/updateProfile",
-  async ({ username, data, imageFile }, { dispatch, rejectWithValue }) => {
+  async (
+    { username, data, imageFile, bannerFile },
+    { dispatch, rejectWithValue },
+  ) => {
     try {
       dispatch(setUpdProfileLoading(true));
 
-      const response = await updateProfileApi(username, { ...data, imageFile });
+      const response = await updateProfileApi(username, {
+        ...data,
+        imageFile,
+        bannerFile,
+      });
       const profile = extractResponseData(response);
 
       dispatch(setProfile(profile));

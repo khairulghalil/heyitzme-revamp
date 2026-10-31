@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Modal } from "react-bootstrap";
+import * as headerBackgrounds from "../../assets/img/header-background";
 import {
   selectProfile,
   selectUpdProfileLoading,
@@ -32,6 +33,8 @@ function ProfileBuilder({ type }) {
   const username = useParams().username;
   const editScrollPosition = useRef(0);
   const photoInputRef = useRef(null);
+  const bannerInputRef = useRef(null);
+  const bannerPreviewRef = useRef(null);
 
   const profile = useSelector(selectProfile);
   const updLoading = useSelector(selectUpdProfileLoading);
@@ -40,6 +43,9 @@ function ProfileBuilder({ type }) {
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [bannerBgUrl, setBannerBgUrl] = useState("");
+  const [bannerFile, setBannerFile] = useState(null);
+  const [bannerCropAspect, setBannerCropAspect] = useState(16 / 5);
+  const [cropTarget, setCropTarget] = useState("photo");
   const [cropImageSrc, setCropImageSrc] = useState(null);
   const [showCropModal, setShowCropModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -49,6 +55,9 @@ function ProfileBuilder({ type }) {
   const [showContactList, setShowContactList] = useState(false);
   const [showSocMedList, setShowSocMedList] = useState(false);
   const [showThemeList, setShowThemeList] = useState(false);
+  const bannerPresetName = Object.keys(headerBackgrounds).find((name) =>
+    builderProfile?.bannerBg?.toLowerCase().includes(name.toLowerCase()),
+  );
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -77,16 +86,28 @@ function ProfileBuilder({ type }) {
     });
   };
 
-  const handlePhotoChange = (e) => {
+  const handlePhotoChange = (e, target = "photo") => {
     const file = e.target.files?.[0];
 
     if (!file) {
       return;
     }
 
+    setCropTarget(target);
     setCropImageSrc(URL.createObjectURL(file));
     setShowCropModal(true);
     e.target.value = "";
+  };
+
+  const handleBannerSelect = ({ path, src }) => {
+    setBannerFile(null);
+    setBannerBgUrl(src);
+    setBuilderProfile((prev) => ({
+      ...prev,
+      bannerBg: path,
+      bannerBgCustom: false,
+      bannerBlobUrl: null,
+    }));
   };
 
   const handleCropCancel = () => {
@@ -95,6 +116,31 @@ function ProfileBuilder({ type }) {
   };
 
   const handleCropSave = async (croppedAreaPixels) => {
+    if (cropTarget === "banner") {
+      const bannerVer = builderProfile?.bannerBgVer + 1 || 1;
+      const filename = `${username}-banner-${bannerVer}.png`;
+      const file = await getCroppedImageFile(
+        cropImageSrc,
+        croppedAreaPixels,
+        filename,
+        1200,
+      );
+      const blobUrl = URL.createObjectURL(file);
+
+      setBannerFile(file);
+      setBannerBgUrl(blobUrl);
+      setShowCropModal(false);
+      setBuilderProfile({
+        ...builderProfile,
+        bannerBg: filename,
+        bannerBgVer: bannerVer,
+        bannerBgCustom: true,
+        bannerBlobUrl: blobUrl,
+      });
+      setCropImageSrc(null);
+      return;
+    }
+
     const imgVer = builderProfile?.profileImageVer + 1 || 1;
     const filename = `${username}-${imgVer}.png`;
     const file = await getCroppedImageFile(
@@ -137,6 +183,7 @@ function ProfileBuilder({ type }) {
         username,
         data: builderProfile,
         imageFile: profilePictureFile,
+        bannerFile,
       }),
     )
       .unwrap()
@@ -164,7 +211,7 @@ function ProfileBuilder({ type }) {
 
       if (profile) {
         console.log(profile);
-        setBuilderProfile({ ...profile, blobUrl: null });
+        setBuilderProfile({ ...profile, blobUrl: null, bannerBlobUrl: null });
         setProfilePictureUrl(
           `https://images.heyitzme.com/${profile.profileImage}`,
         );
@@ -172,6 +219,21 @@ function ProfileBuilder({ type }) {
         setBannerBgUrl(`https://images.heyitzme.com/${profile.bannerBg}`);
       }
     }
+  }, []);
+
+  useEffect(() => {
+    const banner = bannerPreviewRef.current;
+    if (!banner || typeof ResizeObserver === "undefined") return;
+
+    const updateAspect = () => {
+      const { width, height } = banner.getBoundingClientRect();
+      if (width > 0 && height > 0) setBannerCropAspect(width / height);
+    };
+
+    updateAspect();
+    const observer = new ResizeObserver(updateAspect);
+    observer.observe(banner);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -184,6 +246,19 @@ function ProfileBuilder({ type }) {
     }
   }, [showCard]);
 
+  const defaultBannerBg = [
+    {
+      name: "Flower",
+      path: "banners/default/flower-1.png",
+      src: "https://images.heyitzme.com/banners/default/flower-1.png",
+    },
+    {
+      name: "Circuit",
+      path: "banners/default/circuit-1.png",
+      src: "https://images.heyitzme.com/banners/default/circuit-1.png",
+    },
+  ];
+
   return (
     <>
       <Loader show={updLoading} showLogo />
@@ -195,9 +270,25 @@ function ProfileBuilder({ type }) {
           <div className="builder-wrapper">
             <div className="builder-card">
               <div
-                className="header-banner"
-                style={{ "--banner-bg": `url(${bannerBgUrl})` }}
+                className={`header-banner ${builderProfile?.bannerBgCustom ? "custom-banner" : "preset-banner"}`}
+                ref={bannerPreviewRef}
               >
+                {builderProfile?.bannerBgCustom ? (
+                  <img
+                    className="banner-background-image"
+                    src={bannerBgUrl || undefined}
+                    alt=""
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <span
+                    className="banner-pattern"
+                    style={{
+                      "--banner-mask": `url(${headerBackgrounds[bannerPresetName] || headerBackgrounds.circuit})`,
+                    }}
+                    aria-hidden="true"
+                  />
+                )}
                 <div className="profile-picture-wrapper">
                   <img
                     id="profile-picture"
@@ -271,6 +362,10 @@ function ProfileBuilder({ type }) {
                 <ThemeCard
                   builderProfile={builderProfile}
                   handleChange={handleChange}
+                  defaultBannerBg={defaultBannerBg}
+                  handleBannerSelect={handleBannerSelect}
+                  bannerInputRef={bannerInputRef}
+                  handleBannerFileChange={(e) => handlePhotoChange(e, "banner")}
                   showThemeList={showThemeList}
                   setShowThemeList={setShowThemeList}
                 />
@@ -332,6 +427,8 @@ function ProfileBuilder({ type }) {
           imageSrc={cropImageSrc}
           onCancel={handleCropCancel}
           onSave={handleCropSave}
+          aspect={cropTarget === "banner" ? bannerCropAspect : 1}
+          cropShape={cropTarget === "banner" ? "rect" : "round"}
         />
       </Modal>
     </>

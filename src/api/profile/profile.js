@@ -5,7 +5,7 @@ export const getProfile = (username) => {
 };
 
 export const updateProfile = (username, data) => {
-  const { imageFile, ...profileData } = data;
+  const { imageFile, bannerFile, ...profileData } = data;
 
   const formData = new FormData();
 
@@ -13,6 +13,10 @@ export const updateProfile = (username, data) => {
 
   if (imageFile) {
     formData.append("image", imageFile);
+  }
+
+  if (bannerFile) {
+    formData.append("banner", bannerFile);
   }
 
   return api.put(`/profile/${username}`, formData);

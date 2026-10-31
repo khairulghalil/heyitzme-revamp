@@ -32,6 +32,9 @@ function Profiles({ previewData = null, backAction = null }) {
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [bannerBgUrl, setBannerBgUrl] = useState("");
   const [profileData, setProfileData] = useState(null);
+  const bannerPresetName = Object.keys(headerBackgrounds).find((name) =>
+    profileData?.bannerBg?.toLowerCase().includes(name.toLowerCase()),
+  );
 
   useEffect(() => {
     if (previewData) {
@@ -56,7 +59,10 @@ function Profiles({ previewData = null, backAction = null }) {
         );
       }
 
-      setBannerBgUrl(`https://images.heyitzme.com/${profileData.bannerBg}`);
+      setBannerBgUrl(
+        profileData.bannerBlobUrl ||
+          `https://images.heyitzme.com/${profileData.bannerBg}`,
+      );
 
       setProfileUrl(`https://heyitzme.com/${profileData.username}`);
       applyTheme(profileData.theme);
@@ -123,12 +129,23 @@ function Profiles({ previewData = null, backAction = null }) {
 
           <div className="profile-wrapper">
             <div className="profile-card">
-              <div
-                className="header-banner"
-                style={{
-                  "--banner-bg": `url(${bannerBgUrl ?? ""})`,
-                }}
-              >
+              <div className="header-banner">
+                {profileData.bannerBgCustom ? (
+                  <img
+                    className="banner-background-image"
+                    src={bannerBgUrl || undefined}
+                    alt=""
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <span
+                    className="banner-pattern"
+                    style={{
+                      "--banner-mask": `url(${headerBackgrounds[bannerPresetName] || headerBackgrounds.circuit})`,
+                    }}
+                    aria-hidden="true"
+                  />
+                )}
                 <img
                   id="profile-picture"
                   className="profile-picture rounded-circle img-fluid"

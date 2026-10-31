@@ -12,13 +12,30 @@
       position: relative;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 
-      &::before {
-        content: "";
+      .banner-background-image {
         position: absolute;
         inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+      }
+
+      .banner-pattern {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
         background-color: var(--secondary-color);
-        -webkit-mask: var(--banner-bg) no-repeat center / cover;
-        mask: var(--banner-bg) no-repeat center / cover;
+        -webkit-mask-image: var(--banner-mask);
+        -webkit-mask-position: center;
+        -webkit-mask-size: cover;
+        -webkit-mask-repeat: no-repeat;
+        mask-image: var(--banner-mask);
+        mask-position: center;
+        mask-size: cover;
+        mask-repeat: no-repeat;
         pointer-events: none;
       }
     }

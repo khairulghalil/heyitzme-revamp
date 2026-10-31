@@ -1,8 +1,13 @@
 import { Accordion, Form, Dropdown } from "react-bootstrap";
+import * as headerBackgrounds from "../../../assets/img/header-background";
 
 function ThemeCard({
   builderProfile,
   handleChange,
+  defaultBannerBg = [],
+  handleBannerSelect,
+  bannerInputRef,
+  handleBannerFileChange,
   showThemeList = false,
   setShowThemeList,
 }) {
@@ -92,6 +97,52 @@ function ThemeCard({
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
+            </div>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Banner</Form.Label>
+            <div className="banner-options">
+              {defaultBannerBg.map((banner) => (
+                <button
+                  key={banner.path}
+                  type="button"
+                  className={`banner-option ${builderProfile?.bannerBg === banner.path && !builderProfile?.bannerBgCustom ? "active" : ""}`}
+                  style={{
+                    "--banner-mask": `url(${headerBackgrounds[banner.name.toLowerCase()]})`,
+                  }}
+                  aria-label={`${banner.name} banner`}
+                  title={banner.name}
+                  onClick={() => handleBannerSelect(banner)}
+                >
+                  <span className="banner-option-pattern" aria-hidden="true" />
+                  <span>{banner.name}</span>
+                </button>
+              ))}
+              <button
+                type="button"
+                className={`banner-option banner-upload ${builderProfile?.bannerBgCustom ? "active" : ""}`}
+                style={
+                  builderProfile?.bannerBgCustom
+                    ? {
+                        backgroundImage: `url(${builderProfile.bannerBlobUrl || `https://images.heyitzme.com/${builderProfile.bannerBg}`})`,
+                      }
+                    : undefined
+                }
+                aria-label="Upload custom banner"
+                onClick={() => bannerInputRef.current?.click()}
+              >
+                <i className="bi bi-camera-fill"></i>
+                <span>
+                  {builderProfile?.bannerBgCustom ? "Custom" : "Upload"}
+                </span>
+              </button>
+              <input
+                type="file"
+                accept="image/*"
+                ref={bannerInputRef}
+                className="d-none"
+                onChange={handleBannerFileChange}
+              />
             </div>
           </Form.Group>
         </Accordion.Body>
