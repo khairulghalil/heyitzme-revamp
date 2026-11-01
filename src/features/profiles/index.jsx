@@ -17,8 +17,6 @@ import {
   ProfileNotFound,
 } from "./components";
 
-import * as logo from "../../assets/img/logo";
-
 import "./profiles.scss";
 function Profiles({ previewData = null, backAction = null }) {
   const dispatch = useDispatch();
@@ -33,6 +31,7 @@ function Profiles({ previewData = null, backAction = null }) {
   const [profileUrl, setProfileUrl] = useState("");
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [bannerBgUrl, setBannerBgUrl] = useState("");
+  const [logoImageUrl, setLogoImageUrl] = useState("");
   const [profileData, setProfileData] = useState(null);
   const isDefaultBanner =
     !profileData?.bannerBg ||
@@ -67,6 +66,11 @@ function Profiles({ previewData = null, backAction = null }) {
       setBannerBgUrl(
         profileData.bannerBlobUrl ||
           `https://images.heyitzme.com/${profileData.bannerBg}`,
+      );
+
+      setLogoImageUrl(
+        profileData.logoBlobUrl ||
+          `https://images.heyitzme.com/${profileData.logoImage}`,
       );
 
       setProfileUrl(`https://heyitzme.com/${profileData.username}`);
@@ -126,12 +130,6 @@ function Profiles({ previewData = null, backAction = null }) {
             </div>
           )}
 
-          {/* <span
-            className={`profile-header text-left ${previewData ? "d-none" : ""}`}
-          >
-            <Dropdown item={menuOptions} vertical />
-          </span> */}
-
           <div className="profile-wrapper">
             <div className="profile-card">
               <div className="header-banner">
@@ -163,9 +161,11 @@ function Profiles({ previewData = null, backAction = null }) {
                 className={`profile-content text-center mt-3 ${previewData ? "pe-none" : ""}`}
               >
                 <div className="options-wrapper">
-                  <div className="logo-wrapper">
+                  <div
+                    className={`logo-wrapper ${profileData.theme.logoEnable ? "" : "d-none"}`}
+                  >
                     <img
-                      src={logo.proton}
+                      src={logoImageUrl || null}
                       className="logo img-fluid"
                       alt="HeyItzMe"
                     />
