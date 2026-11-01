@@ -194,7 +194,9 @@ function Profiles({ previewData = null, backAction = null }) {
                   <Dropdown item={menuOptions} vertical />
                 </div>
                 <h2 id="name">{profileData.name}</h2>
-                <p id="bio">{profileData.bio}</p>
+                <p id="bio" className="bio">
+                  {profileData.bio}
+                </p>
                 <SocialLink contact={profileData.contact} />
 
                 <div className="d-flex justify-content-start btn-wrapper">

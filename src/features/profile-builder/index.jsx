@@ -358,10 +358,11 @@ function ProfileBuilder({ type }) {
                 <Form.Group className="mb-3" controlId="bio">
                   <Form.Label>Bio</Form.Label>
                   <Form.Control
-                    type="text"
+                    as="textarea"
                     name="bio"
                     value={builderProfile?.bio || ""}
                     onChange={handleChange}
+                    rows={3}
                   />
                 </Form.Group>
 

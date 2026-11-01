@@ -147,6 +147,17 @@
         text-align: left;
       }
 
+      .bio {
+        white-space: pre-line;
+        font-weight: 400;
+        color: color-mix(in srgb, var(--font-color) 60%, white);
+
+        &::first-line {
+          color: var(--font-color);
+          font-weight: 600;
+        }
+      }
+
       .btn-wrapper {
         border-bottom: 1px solid var(--secondary-color);
         padding-bottom: 30px;
