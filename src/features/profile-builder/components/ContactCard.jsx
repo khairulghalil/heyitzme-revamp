@@ -1,4 +1,4 @@
-import { Accordion, Form } from "react-bootstrap";
+import { Accordion, Form, OverlayTrigger, Popover } from "react-bootstrap";
 
 function ContactCard({
   builderProfile,
@@ -91,9 +91,42 @@ function ContactCard({
           </Form.Group>
           <Form.Group className="mb-3" controlId="location">
             <div className="d-flex align-items-center justify-content-between mb-2">
-              <Form.Label className="mb-0">
-                Location (Google Maps URL)
-              </Form.Label>
+              <div className="d-flex align-items-center gap-2">
+                <Form.Label className="mb-0">Location (Google Maps)</Form.Label>
+                <OverlayTrigger
+                  trigger="click"
+                  placement="top"
+                  rootClose
+                  overlay={
+                    <Popover
+                      id="google-maps-link-help"
+                      className="google-maps-help-popover"
+                    >
+                      <Popover.Body>
+                        <ol className="mb-0 ps-3">
+                          <li>Open Google Maps.</li>
+                          <li>Find your location.</li>
+                          <li>
+                            Select <strong>Share</strong>.
+                          </li>
+                          <li>
+                            Choose <strong>Copy link</strong>.
+                          </li>
+                          <li>Paste the link into this field.</li>
+                        </ol>
+                      </Popover.Body>
+                    </Popover>
+                  }
+                >
+                  <button
+                    type="button"
+                    className="location-info-button"
+                    aria-label="How to copy a Google Maps link"
+                  >
+                    <i className="bi bi-info-circle" aria-hidden="true" />
+                  </button>
+                </OverlayTrigger>
+              </div>
 
               <Form.Check
                 type="switch"
