@@ -43,6 +43,8 @@ function SocialLink({ contact }) {
         <a
           href={website.item}
           className={`social-icon ${hidden(website.show)}`}
+          target="_blank"
+          rel="noreferrer"
           aria-label="Website"
         >
           <i className="bi bi-globe"></i>
@@ -51,6 +53,8 @@ function SocialLink({ contact }) {
         <a
           href={linkedin.item}
           className={`social-icon ${hidden(linkedin.show)}`}
+          target="_blank"
+          rel="noreferrer"
           aria-label="LinkedIn"
         >
           <i className="bi bi-linkedin"></i>
