@@ -2,11 +2,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Offcanvas } from "react-bootstrap";
-import * as headerBackgrounds from "../../assets/img/header-background";
 import * as brandLogo from "../../assets/img/logo";
 import { Footer, useLogin, Loader, Dropdown } from "../../components";
 import { applyTheme, saveContact, isAuthenticated } from "../../utils";
 import { getProfile } from "../../store/profile/actions";
+import { bannerThumbnail } from "../../constants";
 import {
   selectProfile,
   selectProfileLoading,
@@ -37,9 +37,9 @@ function Profiles({ previewData = null, backAction = null }) {
   const isDefaultBanner =
     !profileData?.bannerBg ||
     profileData.bannerBg.startsWith("banners/default/");
-  const bannerPresetName = Object.keys(headerBackgrounds).find((name) =>
-    profileData?.bannerBg?.toLowerCase().includes(name.toLowerCase()),
-  );
+  const bannerPreset =
+    bannerThumbnail.find((banner) => banner.path === profileData?.bannerBg) ||
+    bannerThumbnail.find((banner) => banner.name === "Circuit");
 
   useEffect(() => {
     if (previewData) {
@@ -145,7 +145,7 @@ function Profiles({ previewData = null, backAction = null }) {
                   <span
                     className="banner-pattern"
                     style={{
-                      "--banner-mask": `url(${headerBackgrounds[bannerPresetName] || headerBackgrounds.circuit})`,
+                      "--banner-mask": `url(${bannerPreset?.src || ""})`,
                     }}
                     aria-hidden="true"
                   />

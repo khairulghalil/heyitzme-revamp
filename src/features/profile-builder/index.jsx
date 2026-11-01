@@ -2,7 +2,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Modal } from "react-bootstrap";
-import * as headerBackgrounds from "../../assets/img/header-background";
 import {
   selectProfile,
   selectUpdProfileLoading,
@@ -66,9 +65,9 @@ function ProfileBuilder({ type }) {
     builderProfile.bannerBg.startsWith("banners/default/");
   const isCustomBanner =
     !!bannerFile || (!!builderProfile?.bannerBg && !isDefaultBanner);
-  const bannerPresetName = Object.keys(headerBackgrounds).find((name) =>
-    builderProfile?.bannerBg?.toLowerCase().includes(name.toLowerCase()),
-  );
+  const bannerPreset =
+    bannerThumbnail.find((banner) => banner.path === builderProfile?.bannerBg) ||
+    bannerThumbnail.find((banner) => banner.name === "Circuit");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -319,7 +318,7 @@ function ProfileBuilder({ type }) {
                   <span
                     className="banner-pattern"
                     style={{
-                      "--banner-mask": `url(${headerBackgrounds[bannerPresetName] || headerBackgrounds.circuit})`,
+                      "--banner-mask": `url(${bannerPreset?.src || ""})`,
                     }}
                     aria-hidden="true"
                   />

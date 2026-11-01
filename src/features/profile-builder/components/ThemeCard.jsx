@@ -1,5 +1,4 @@
 import { Accordion, Form, Dropdown } from "react-bootstrap";
-import * as headerBackgrounds from "../../../assets/img/header-background";
 
 function ThemeCard({
   builderProfile,
@@ -113,7 +112,7 @@ function ThemeCard({
                   type="button"
                   className={`banner-option ${builderProfile?.bannerBg === banner.path && !isCustomBanner ? "active" : ""}`}
                   style={{
-                    "--banner-mask": `url(${headerBackgrounds[banner.name.toLowerCase()]})`,
+                    "--banner-mask": `url(${banner.src})`,
                   }}
                   aria-label={`${banner.name} banner`}
                   title={banner.name}
