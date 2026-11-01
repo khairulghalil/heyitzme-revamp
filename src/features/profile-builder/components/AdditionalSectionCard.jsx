@@ -7,6 +7,8 @@ function AdditionalSectionCard({
   setShowAdditionalSectionList,
 }) {
   const sectionData = builderProfile?.additionalSection?.item;
+  const sectionLimit = builderProfile?.additionalSection?.limit || 1;
+  console.log("sectionLimit:", sectionLimit);
   const sections = Array.isArray(sectionData)
     ? sectionData
     : sectionData && typeof sectionData === "object"
@@ -91,9 +93,11 @@ function AdditionalSectionCard({
               />
             </Form.Group>
           ))}
-          <Button type="button" variant="secondary" onClick={addSection}>
-            Add section
-          </Button>
+          {sections.length < sectionLimit && (
+            <Button type="button" variant="secondary" onClick={addSection}>
+              Add section
+            </Button>
+          )}
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
