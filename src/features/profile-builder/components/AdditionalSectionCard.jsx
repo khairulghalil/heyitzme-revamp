@@ -13,13 +13,21 @@ function AdditionalSectionCard({
       ? [sectionData]
       : [];
 
-  const addSection = () => {
+  const updateSections = (items) => {
     handleChange({
       target: {
         name: "additionalSection.item",
-        value: [...sections, { enable: true, title: "", content: "" }],
+        value: items,
       },
     });
+  };
+
+  const addSection = () => {
+    updateSections([...sections, { enable: true, title: "", content: "" }]);
+  };
+
+  const deleteSection = (indexToDelete) => {
+    updateSections(sections.filter((_, index) => index !== indexToDelete));
   };
 
   return (
@@ -42,15 +50,27 @@ function AdditionalSectionCard({
               controlId={`additional-section-${index}`}
               key={index}
             >
-              <div className="d-flex align-items-center justify-content-between mb-2">
+              <div className="d-flex align-items-center gap-2 mb-2">
                 <Form.Control
                   type="text"
                   className="mb-2"
                   name={`additionalSection.item.${index}.title`}
                   value={section.title || ""}
                   onChange={handleChange}
-                  placeholder="Section title"
+                  placeholder="Title"
                 />
+
+                <Button
+                  type="button"
+                  variant="outline-danger"
+                  className="mb-2 delete-section-btn"
+                  aria-label={`Delete additional section ${index + 1}`}
+                  title="Delete section"
+                  onClick={() => deleteSection(index)}
+                >
+                  <i className="bi bi-trash3" aria-hidden="true" />
+                </Button>
+
                 <Form.Check
                   type="switch"
                   id={`additional-section-${index}-toggle`}
@@ -67,7 +87,7 @@ function AdditionalSectionCard({
                 value={section.content || ""}
                 onChange={handleChange}
                 rows={3}
-                placeholder="Section content"
+                placeholder="Content"
               />
             </Form.Group>
           ))}

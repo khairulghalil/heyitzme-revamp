@@ -204,6 +204,11 @@
       border: 0.7px solid #a3a3a356;
       background-color: transparent;
       color: var(--font-builder-color);
+
+      &::placeholder {
+        color: #a3a3a3;
+        opacity: 1;
+      }
     }
 
     .form-control:focus {
@@ -246,6 +251,19 @@
           background-color: transparent !important;
           border: 0.1px solid #a3a3a3ac !important;
           color: var(--font-builder-color) !important;
+        }
+
+        .delete-section-btn {
+          min-width: fit-content;
+          border: 0.7px solid #a3a3a356;
+        }
+
+        .delete-section-btn:focus,
+        .delete-section-btn:hover {
+          background: none !important;
+          color: #dc3545;
+          border: 0.7px solid #a3a3a356;
+          box-shadow: none;
         }
       }
 
