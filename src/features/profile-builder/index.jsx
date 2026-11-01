@@ -413,7 +413,7 @@ function ProfileBuilder({ type }) {
                 />
 
                 <button
-                  className="btn btn-primary accent-theme my-4 w-100"
+                  className="btn btn-primary accent-theme my-4 py-2 w-100"
                   onClick={() => {
                     editScrollPosition.current = window.scrollY;
                     setShowCard(true);

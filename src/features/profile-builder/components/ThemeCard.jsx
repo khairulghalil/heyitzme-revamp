@@ -30,7 +30,7 @@ function ThemeCard({
     <Accordion defaultActiveKey={showThemeList ? "1" : "0"} className="mb-3">
       <Accordion.Item eventKey="1">
         <Accordion.Header onClick={() => setShowThemeList(!showThemeList)}>
-          Theme
+          Appearance
         </Accordion.Header>
         <Accordion.Body>
           <Form.Group className="mb-3" controlId="primaryColor">
