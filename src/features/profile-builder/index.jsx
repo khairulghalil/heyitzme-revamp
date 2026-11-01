@@ -19,6 +19,7 @@ import {
 import {
   ContactCard,
   SocialMediaCard,
+  AdditionalSectionCard,
   ThemeCard,
   PhotoCropModal,
 } from "./components";
@@ -57,6 +58,8 @@ function ProfileBuilder({ type }) {
   const [showCard, setShowCard] = useState(false);
   const [showContactList, setShowContactList] = useState(false);
   const [showSocMedList, setShowSocMedList] = useState(false);
+  const [showAdditionalSectionList, setShowAdditionalSectionList] =
+    useState(false);
   const [showThemeList, setShowThemeList] = useState(false);
   const isDefaultBanner =
     !builderProfile?.bannerBg ||
@@ -70,13 +73,10 @@ function ProfileBuilder({ type }) {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    console.log(name, value, type, checked);
-
     const newValue = type === "checkbox" ? checked : value;
+    const keys = name.split(".");
 
     setBuilderProfile((prev) => {
-      const keys = name.split(".");
-
       const updated = { ...prev };
       let current = updated;
 
@@ -84,9 +84,14 @@ function ProfileBuilder({ type }) {
         if (index === keys.length - 1) {
           current[key] = newValue;
         } else {
-          current[key] = {
-            ...current[key],
-          };
+          const nextKey = keys[index + 1];
+          const currentValue = current[key];
+          current[key] = Array.isArray(currentValue)
+            ? [...currentValue]
+            : {
+                ...(currentValue ||
+                  (Number.isInteger(Number(nextKey)) ? [] : {})),
+              };
 
           current = current[key];
         }
@@ -388,6 +393,12 @@ function ProfileBuilder({ type }) {
                   handleChange={handleChange}
                   showSocMedList={showSocMedList}
                   setShowSocMedList={setShowSocMedList}
+                />
+                <AdditionalSectionCard
+                  builderProfile={builderProfile}
+                  handleChange={handleChange}
+                  showAdditionalSectionList={showAdditionalSectionList}
+                  setShowAdditionalSectionList={setShowAdditionalSectionList}
                 />
                 <ThemeCard
                   builderProfile={builderProfile}

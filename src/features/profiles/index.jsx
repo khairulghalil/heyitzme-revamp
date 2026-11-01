@@ -221,11 +221,18 @@ function Profiles({ previewData = null, backAction = null }) {
                   {profileData.about}
                 </p>
 
-                {profileData.additionalSection.item.length > 0 &&
-                  profileData.additionalSection.item.map((item, index) => (
-                    <p key={index} id="about" className="about">
+                {(Array.isArray(profileData.additionalSection?.item)
+                  ? profileData.additionalSection.item
+                  : profileData.additionalSection?.item &&
+                      typeof profileData.additionalSection.item === "object"
+                    ? [profileData.additionalSection.item]
+                    : []
+                )
+                  .filter((item) => item.enable)
+                  .map((item, index) => (
+                    <p key={index} className="about additional-section-content">
                       <span className="about-title">{item.title}</span>
-                      {item.description}
+                      {item.content}
                     </p>
                   ))}
 
