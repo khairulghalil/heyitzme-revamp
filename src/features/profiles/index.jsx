@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Offcanvas } from "react-bootstrap";
 import * as headerBackgrounds from "../../assets/img/header-background";
+import * as brandLogo from "../../assets/img/logo";
 import { Footer, useLogin, Loader, Dropdown } from "../../components";
 import { applyTheme, saveContact, isAuthenticated } from "../../utils";
 import { getProfile } from "../../store/profile/actions";
@@ -193,7 +194,17 @@ function Profiles({ previewData = null, backAction = null }) {
                   </div>
                   <Dropdown item={menuOptions} vertical />
                 </div>
-                <h2 id="name">{profileData.name}</h2>
+                <h2 id="name" className="profile-name">
+                  <span>{profileData.name}</span>
+                  {profileData.username === "khairul-ghalil" && (
+                    <img
+                      className="username-mark"
+                      src={brandLogo.icon}
+                      alt=""
+                      aria-hidden="true"
+                    />
+                  )}
+                </h2>
                 <p id="bio" className="bio mb-0">
                   {profileData.bio}
                 </p>
