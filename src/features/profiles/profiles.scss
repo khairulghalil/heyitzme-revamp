@@ -151,10 +151,12 @@
         white-space: pre-line;
         font-weight: 400;
         color: color-mix(in srgb, var(--font-color) 60%, white);
+        font-size: 16px;
 
         &::first-line {
           color: var(--font-color);
           font-weight: 600;
+          font-size: 1.1rem;
         }
       }
 
@@ -350,7 +352,7 @@
       padding: 10px;
 
       button.share {
-        border-radius: 0 !important;
+        border-radius: 5px !important;
         min-width: fit-content !important;
         padding: 10px 15px !important;
         margin: 0 !important;
