@@ -4,7 +4,7 @@ import * as headerBackgrounds from "../../../assets/img/header-background";
 function ThemeCard({
   builderProfile,
   handleChange,
-  defaultBannerBg = [],
+  bannerThumbnail = [],
   handleBannerSelect,
   bannerInputRef,
   handleBannerFileChange,
@@ -107,7 +107,7 @@ function ThemeCard({
           <Form.Group className="mb-3">
             <Form.Label>Banner</Form.Label>
             <div className="banner-options">
-              {defaultBannerBg.map((banner) => (
+              {bannerThumbnail.map((banner) => (
                 <button
                   key={banner.path}
                   type="button"

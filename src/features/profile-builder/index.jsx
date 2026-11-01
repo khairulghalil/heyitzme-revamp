@@ -23,6 +23,7 @@ import {
   PhotoCropModal,
 } from "./components";
 import Profiles from "../profiles";
+import { bannerThumbnail } from "../../constants";
 import "./profile-builder.scss";
 
 function ProfileBuilder({ type }) {
@@ -288,19 +289,6 @@ function ProfileBuilder({ type }) {
     }
   }, [showCard]);
 
-  const defaultBannerBg = [
-    {
-      name: "Flower",
-      path: "banners/default/flower-1.png",
-      src: "https://images.heyitzme.com/banners/default/flower-1.png",
-    },
-    {
-      name: "Circuit",
-      path: "banners/default/circuit-1.png",
-      src: "https://images.heyitzme.com/banners/default/circuit-1.png",
-    },
-  ];
-
   return (
     <>
       <Loader show={updLoading} showLogo />
@@ -403,7 +391,7 @@ function ProfileBuilder({ type }) {
                 <ThemeCard
                   builderProfile={builderProfile}
                   handleChange={handleChange}
-                  defaultBannerBg={defaultBannerBg}
+                  bannerThumbnail={bannerThumbnail}
                   handleBannerSelect={handleBannerSelect}
                   bannerInputRef={bannerInputRef}
                   handleBannerFileChange={(e) => handlePhotoChange(e, "banner")}
