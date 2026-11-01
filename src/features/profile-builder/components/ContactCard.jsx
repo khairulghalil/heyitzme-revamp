@@ -10,7 +10,7 @@ function ContactCard({
     <Accordion defaultActiveKey={showContactList ? "1" : "0"} className="mb-3">
       <Accordion.Item eventKey="1">
         <Accordion.Header onClick={() => setShowContactList(!showContactList)}>
-          Contact
+          Contact & Links
         </Accordion.Header>
         <Accordion.Body>
           <Form.Group className="mb-3" controlId="phone">
@@ -86,6 +86,27 @@ function ContactCard({
               type="text"
               name="contact.whatsappText.item"
               value={builderProfile?.contact?.whatsappText?.item || ""}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="location">
+            <div className="d-flex align-items-center justify-content-between mb-2">
+              <Form.Label className="mb-0">
+                Location (Google Maps URL)
+              </Form.Label>
+
+              <Form.Check
+                type="switch"
+                id="location-toggle"
+                name="contact.location.show"
+                checked={builderProfile?.contact?.location?.show || false}
+                onChange={handleChange}
+              />
+            </div>
+            <Form.Control
+              type="text"
+              name="contact.location.item"
+              value={builderProfile?.contact?.location?.item || ""}
               onChange={handleChange}
             />
           </Form.Group>
