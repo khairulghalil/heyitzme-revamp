@@ -168,7 +168,7 @@
         }
       }
 
-      .about-title {
+      .section-title {
         display: block;
         font-weight: bolder;
         margin-bottom: 10px;
@@ -176,7 +176,7 @@
         text-transform: uppercase;
       }
 
-      .about {
+      .section {
         color: var(--font-color);
         font-weight: 500;
         margin: 25px 0 35px;
@@ -185,10 +185,23 @@
 
       .additional-section-content {
         white-space: pre-line;
+
+        .additional-section-line {
+          display: block;
+        }
+
+        .additional-section-bullet {
+          margin-right: 15px;
+          font-size: 5px;
+          vertical-align: middle;
+          position: relative;
+          top: -2px;
+          color: var(--primary-color);
+        }
       }
 
       @media (max-width: 991.98px) {
-        .about {
+        .section {
           padding: 0;
         }
       }

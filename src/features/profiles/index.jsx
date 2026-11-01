@@ -216,8 +216,8 @@ function Profiles({ previewData = null, backAction = null }) {
                   </button>
                 </div>
 
-                <p id="about" className="about">
-                  <span className="about-title">ABOUT</span>
+                <p id="about" className="section">
+                  <span className="section-title">ABOUT</span>
                   {profileData.about}
                 </p>
 
@@ -230,9 +230,35 @@ function Profiles({ previewData = null, backAction = null }) {
                 )
                   .filter((item) => item.enable)
                   .map((item, index) => (
-                    <p key={index} className="about additional-section-content">
-                      <span className="about-title">{item.title}</span>
-                      {item.content}
+                    <p
+                      key={index}
+                      className="section additional-section-content"
+                    >
+                      <span className="section-title">{item.title}</span>
+                      {(item.content || "")
+                        .split(/\r?\n/)
+                        .map((line, lineIndex) => {
+                          const bulletLine = line.match(/^\s*-\s+(.*)$/);
+
+                          return (
+                            <span
+                              className="additional-section-line"
+                              key={lineIndex}
+                            >
+                              {bulletLine ? (
+                                <>
+                                  <i
+                                    className="bi bi-circle-fill additional-section-bullet"
+                                    aria-hidden="true"
+                                  />
+                                  {bulletLine[1]}
+                                </>
+                              ) : (
+                                line
+                              )}
+                            </span>
+                          );
+                        })}
                     </p>
                   ))}
 
