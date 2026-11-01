@@ -150,9 +150,21 @@ function ThemeCard({
               />
             </div>
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Logo</Form.Label>
-            <div className="banner-options logo-options">
+          <Form.Group className="mb-1">
+            <div className="d-flex align-items-center justify-content-between mb-2">
+              <Form.Label className="mb-0">Logo</Form.Label>
+              <Form.Check
+                type="switch"
+                id="logo-toggle"
+                name="theme.logoEnable"
+                checked={builderProfile?.theme?.logoEnable || false}
+                onChange={handleChange}
+                className="text-end"
+              />
+            </div>
+            <div
+              className={`banner-options mb-3 logo-options ${builderProfile?.theme?.logoEnable ? "" : "d-none"}`}
+            >
               <button
                 type="button"
                 className={`banner-option banner-upload ${builderProfile?.logoImage ? "active" : ""}`}
