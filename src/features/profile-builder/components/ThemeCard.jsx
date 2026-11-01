@@ -150,7 +150,7 @@ function ThemeCard({
               />
             </div>
           </Form.Group>
-          <Form.Group className="mb-1">
+          <Form.Group className="mb-3">
             <div className="d-flex align-items-center justify-content-between mb-2">
               <Form.Label className="mb-0">Logo</Form.Label>
               <Form.Check
@@ -163,7 +163,7 @@ function ThemeCard({
               />
             </div>
             <div
-              className={`banner-options mb-3 logo-options ${builderProfile?.theme?.logoEnable ? "" : "d-none"}`}
+              className={`banner-options mb-4 logo-options ${builderProfile?.theme?.logoEnable ? "" : "d-none"}`}
             >
               <button
                 type="button"
@@ -187,6 +187,18 @@ function ThemeCard({
                 ref={logoInputRef}
                 className="d-none"
                 onChange={handleLogoFileChange}
+              />
+            </div>
+          </Form.Group>
+          <Form.Group className="mb-1">
+            <div className="d-flex align-items-center justify-content-between mb-2">
+              <Form.Label className="mb-0">Verified Badge</Form.Label>
+              <Form.Check
+                type="switch"
+                name="theme.verifiedEnable"
+                checked={builderProfile?.theme?.verifiedEnable || false}
+                onChange={handleChange}
+                className="text-end"
               />
             </div>
           </Form.Group>

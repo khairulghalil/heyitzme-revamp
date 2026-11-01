@@ -149,12 +149,33 @@ function Profiles({ previewData = null, backAction = null }) {
                     aria-hidden="true"
                   />
                 )}
-                <img
-                  id="profile-picture"
-                  className="profile-picture rounded-circle img-fluid"
-                  alt="Profile"
-                  src={profilePictureUrl || null}
-                />
+                <div className="profile-picture-wrapper">
+                  <img
+                    id="profile-picture"
+                    className="profile-picture rounded-circle img-fluid"
+                    alt="Profile"
+                    src={profilePictureUrl || null}
+                  />
+                  <span
+                    className={`verified-badge ${profileData.theme.verifiedEnable ? "" : "d-none"}`}
+                    role="img"
+                    aria-label="Verified profile"
+                    title="Verified profile"
+                  >
+                    <i
+                      className="bi bi-patch-check-fill badge-shape"
+                      aria-hidden="true"
+                    />
+                    <i
+                      className="bi bi-circle-fill badge-hide"
+                      aria-hidden="true"
+                    />
+                    <i
+                      className="bi bi-check-lg badge-check"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </div>
               </div>
 
               <div

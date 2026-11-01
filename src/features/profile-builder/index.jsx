@@ -69,6 +69,8 @@ function ProfileBuilder({ type }) {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
+    console.log(name, value, type, checked);
+
     const newValue = type === "checkbox" ? checked : value;
 
     setBuilderProfile((prev) => {
@@ -336,7 +338,6 @@ function ProfileBuilder({ type }) {
                     alt="Profile"
                     src={profilePictureUrl || null}
                   />
-
                   <button
                     type="button"
                     className="upload-photo-btn"

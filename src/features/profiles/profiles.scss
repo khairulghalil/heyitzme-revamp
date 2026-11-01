@@ -40,16 +40,57 @@
       }
     }
 
-    .profile-picture {
+    .profile-picture-wrapper {
       position: absolute;
       z-index: 2;
       width: 140px;
       height: 140px;
-      object-fit: cover;
       top: 130px;
+      left: 20px;
+    }
+
+    .profile-picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       border: 6px solid var(--background-color);
       background-color: lightgray;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .verified-badge {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      z-index: 1;
+
+      .badge-shape {
+        color: #1687ff;
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      .badge-hide {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: #1687ff;
+        font-size: 14px;
+        line-height: 1;
+        transform: translate(-50%, -50%);
+      }
+
+      .badge-check {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        color: white;
+        font-size: 16px;
+        line-height: 1;
+        transform: translate(-50%, -50%);
+        font-weight: bolder;
+      }
     }
 
     .profile-content {
