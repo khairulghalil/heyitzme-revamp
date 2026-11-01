@@ -43,9 +43,14 @@ function AdditionalSectionCard({
               key={index}
             >
               <div className="d-flex align-items-center justify-content-between mb-2">
-                <Form.Label className="mb-0">
-                  Section {index + 1} Title
-                </Form.Label>
+                <Form.Control
+                  type="text"
+                  className="mb-2"
+                  name={`additionalSection.item.${index}.title`}
+                  value={section.title || ""}
+                  onChange={handleChange}
+                  placeholder="Section title"
+                />
                 <Form.Check
                   type="switch"
                   id={`additional-section-${index}-toggle`}
@@ -53,16 +58,9 @@ function AdditionalSectionCard({
                   checked={section.enable ?? false}
                   onChange={handleChange}
                   aria-label={`Enable additional section ${index + 1}`}
+                  className="mb-2 text-end"
                 />
               </div>
-              <Form.Control
-                type="text"
-                className="mb-2"
-                name={`additionalSection.item.${index}.title`}
-                value={section.title || ""}
-                onChange={handleChange}
-                placeholder="Section title"
-              />
               <Form.Control
                 as="textarea"
                 name={`additionalSection.item.${index}.content`}

@@ -382,6 +382,12 @@ function ProfileBuilder({ type }) {
                   />
                 </Form.Group>
 
+                <AdditionalSectionCard
+                  builderProfile={builderProfile}
+                  handleChange={handleChange}
+                  showAdditionalSectionList={showAdditionalSectionList}
+                  setShowAdditionalSectionList={setShowAdditionalSectionList}
+                />
                 <ContactCard
                   builderProfile={builderProfile}
                   handleChange={handleChange}
@@ -393,12 +399,6 @@ function ProfileBuilder({ type }) {
                   handleChange={handleChange}
                   showSocMedList={showSocMedList}
                   setShowSocMedList={setShowSocMedList}
-                />
-                <AdditionalSectionCard
-                  builderProfile={builderProfile}
-                  handleChange={handleChange}
-                  showAdditionalSectionList={showAdditionalSectionList}
-                  setShowAdditionalSectionList={setShowAdditionalSectionList}
                 />
                 <ThemeCard
                   builderProfile={builderProfile}
