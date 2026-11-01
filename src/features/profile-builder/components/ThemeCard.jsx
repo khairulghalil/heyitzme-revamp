@@ -11,6 +11,9 @@ function ThemeCard({
   showThemeList = false,
   setShowThemeList,
 }) {
+  const isCustomBanner =
+    !!builderProfile?.bannerBg &&
+    !builderProfile.bannerBg.startsWith("banners/default/");
   const fontFamily = [
     "Afacad",
     "Aclonica",
@@ -106,7 +109,7 @@ function ThemeCard({
                 <button
                   key={banner.path}
                   type="button"
-                  className={`banner-option ${builderProfile?.bannerBg === banner.path && !builderProfile?.bannerBgCustom ? "active" : ""}`}
+                  className={`banner-option ${builderProfile?.bannerBg === banner.path && !isCustomBanner ? "active" : ""}`}
                   style={{
                     "--banner-mask": `url(${headerBackgrounds[banner.name.toLowerCase()]})`,
                   }}
@@ -120,9 +123,9 @@ function ThemeCard({
               ))}
               <button
                 type="button"
-                className={`banner-option banner-upload ${builderProfile?.bannerBgCustom ? "active" : ""}`}
+                className={`banner-option banner-upload ${isCustomBanner ? "active" : ""}`}
                 style={
-                  builderProfile?.bannerBgCustom
+                  isCustomBanner
                     ? {
                         backgroundImage: `url(${builderProfile.bannerBlobUrl || `https://images.heyitzme.com/${builderProfile.bannerBg}`})`,
                       }

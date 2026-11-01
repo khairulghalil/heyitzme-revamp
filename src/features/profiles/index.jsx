@@ -32,6 +32,9 @@ function Profiles({ previewData = null, backAction = null }) {
   const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [bannerBgUrl, setBannerBgUrl] = useState("");
   const [profileData, setProfileData] = useState(null);
+  const isDefaultBanner =
+    !profileData?.bannerBg ||
+    profileData.bannerBg.startsWith("banners/default/");
   const bannerPresetName = Object.keys(headerBackgrounds).find((name) =>
     profileData?.bannerBg?.toLowerCase().includes(name.toLowerCase()),
   );
@@ -130,7 +133,7 @@ function Profiles({ previewData = null, backAction = null }) {
           <div className="profile-wrapper">
             <div className="profile-card">
               <div className="header-banner">
-                {profileData.bannerBgCustom ? (
+                {!isDefaultBanner ? (
                   <img
                     className="banner-background-image"
                     src={bannerBgUrl || undefined}

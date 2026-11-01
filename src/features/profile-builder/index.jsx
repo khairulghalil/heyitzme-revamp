@@ -55,6 +55,11 @@ function ProfileBuilder({ type }) {
   const [showContactList, setShowContactList] = useState(false);
   const [showSocMedList, setShowSocMedList] = useState(false);
   const [showThemeList, setShowThemeList] = useState(false);
+  const isDefaultBanner =
+    !builderProfile?.bannerBg ||
+    builderProfile.bannerBg.startsWith("banners/default/");
+  const isCustomBanner =
+    !!bannerFile || (!!builderProfile?.bannerBg && !isDefaultBanner);
   const bannerPresetName = Object.keys(headerBackgrounds).find((name) =>
     builderProfile?.bannerBg?.toLowerCase().includes(name.toLowerCase()),
   );
@@ -273,7 +278,7 @@ function ProfileBuilder({ type }) {
                 className={`header-banner ${builderProfile?.bannerBgCustom ? "custom-banner" : "preset-banner"}`}
                 ref={bannerPreviewRef}
               >
-                {builderProfile?.bannerBgCustom ? (
+                {isCustomBanner ? (
                   <img
                     className="banner-background-image"
                     src={bannerBgUrl || undefined}
