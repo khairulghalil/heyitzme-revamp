@@ -363,11 +363,35 @@ function ProfileBuilder({ type }) {
                 <Form.Group className="mb-3" controlId="bio">
                   <Form.Label>Bio</Form.Label>
                   <Form.Control
-                    as="textarea"
+                    type="text"
                     name="bio"
                     value={builderProfile?.bio || ""}
                     onChange={handleChange}
-                    rows={3}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="description">
+                  <div className="d-flex align-items-center justify-content-between mb-2">
+                    <Form.Label className="mb-0">Description</Form.Label>
+                    <Form.Check
+                      type="switch"
+                      id="description-toggle"
+                      name="description.enable"
+                      checked={builderProfile?.description?.enable ?? false}
+                      onChange={handleChange}
+                      aria-label="Enable description"
+                      className="text-end"
+                    />
+                  </div>
+                  <Form.Control
+                    as="textarea"
+                    name="description.item"
+                    value={builderProfile?.description?.item || ""}
+                    onChange={handleChange}
+                    rows={2}
+                    className={
+                      builderProfile?.description?.enable ? "" : "d-none"
+                    }
                   />
                 </Form.Group>
 

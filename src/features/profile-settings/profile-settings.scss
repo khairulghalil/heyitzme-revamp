@@ -61,7 +61,7 @@
   }
 
   .setting-content {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     padding: 20px;
 
     .content-header {
@@ -189,6 +189,16 @@
           top: 1px;
           font-size: 14px;
         }
+      }
+    }
+
+    .info {
+      color: var(--font-color);
+      font-size: 13px;
+      i {
+        font-size: 14px;
+        top: 1px;
+        position: relative;
       }
     }
 

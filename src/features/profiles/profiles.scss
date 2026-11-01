@@ -148,16 +148,16 @@
       }
 
       .bio {
+        color: var(--font-color);
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .description {
         white-space: pre-line;
         font-weight: 400;
         color: color-mix(in srgb, var(--font-color) 60%, white);
         font-size: 16px;
-
-        &::first-line {
-          color: var(--font-color);
-          font-weight: 600;
-          font-size: 1.1rem;
-        }
       }
 
       .btn-wrapper {

@@ -179,7 +179,6 @@ function ProfileSettings() {
                   </button>
                 </div>
               </div>
-
               <div className="d-flex content-header">
                 <p>Account and Security </p>
               </div>
@@ -301,7 +300,6 @@ function ProfileSettings() {
                   )}
                 </div>
               </div>
-
               <div className="d-flex content-header membership">
                 <p>Membership</p>
                 <span className={`badge ms-auto rounded-pill bg-warning`}>
@@ -335,6 +333,12 @@ function ProfileSettings() {
                   </div>
                   <span>{moment(profile.expiresAt).format("DD MMM YYYY")}</span>
                 </div>
+              </div>
+              <div className="info text-centre mt-4">
+                <i className="bi bi-info-circle me-1"></i>
+                <span>
+                  Your account information is private and only visible to you.
+                </span>
               </div>
             </div>
           </div>
