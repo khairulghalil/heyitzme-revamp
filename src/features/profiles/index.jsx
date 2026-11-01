@@ -221,6 +221,14 @@ function Profiles({ previewData = null, backAction = null }) {
                   {profileData.about}
                 </p>
 
+                {profileData.additionalSection.item.length > 0 &&
+                  profileData.additionalSection.item.map((item, index) => (
+                    <p key={index} id="about" className="about">
+                      <span className="about-title">{item.title}</span>
+                      {item.description}
+                    </p>
+                  ))}
+
                 <SocialMedia links={profileData.socialMedia} />
               </div>
             </div>
