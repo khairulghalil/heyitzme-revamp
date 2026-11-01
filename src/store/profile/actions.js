@@ -33,7 +33,7 @@ export const getProfile = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   "profile/updateProfile",
   async (
-    { username, data, imageFile, bannerFile },
+    { username, data, imageFile, bannerFile, logoFile },
     { dispatch, rejectWithValue },
   ) => {
     try {
@@ -43,6 +43,7 @@ export const updateProfile = createAsyncThunk(
         ...data,
         imageFile,
         bannerFile,
+        logoFile,
       });
       const profile = extractResponseData(response);
 

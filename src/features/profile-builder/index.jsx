@@ -34,6 +34,7 @@ function ProfileBuilder({ type }) {
   const editScrollPosition = useRef(0);
   const photoInputRef = useRef(null);
   const bannerInputRef = useRef(null);
+  const logoInputRef = useRef(null);
   const bannerPreviewRef = useRef(null);
 
   const profile = useSelector(selectProfile);
@@ -44,6 +45,7 @@ function ProfileBuilder({ type }) {
   const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [bannerBgUrl, setBannerBgUrl] = useState("");
   const [bannerFile, setBannerFile] = useState(null);
+  const [logoFile, setLogoFile] = useState(null);
   const [bannerCropAspect, setBannerCropAspect] = useState(16 / 5);
   const [cropTarget, setCropTarget] = useState("photo");
   const [cropImageSrc, setCropImageSrc] = useState(null);
@@ -146,6 +148,33 @@ function ProfileBuilder({ type }) {
       return;
     }
 
+    if (cropTarget === "logo") {
+      const logoVer = builderProfile?.logoImageVer + 1 || 1;
+      const filename = `${username}-logo-${logoVer}.png`;
+      const file = await getCroppedImageFile(
+        cropImageSrc,
+        croppedAreaPixels,
+        filename,
+        600,
+      );
+      const blobUrl = URL.createObjectURL(file);
+
+      setLogoFile(file);
+      setShowCropModal(false);
+      setBuilderProfile({
+        ...builderProfile,
+        logoImage: filename,
+        logoImageVer: logoVer,
+        logoBlobUrl: blobUrl,
+        theme: {
+          ...builderProfile.theme,
+          logoEnable: true,
+        },
+      });
+      setCropImageSrc(null);
+      return;
+    }
+
     const imgVer = builderProfile?.profileImageVer + 1 || 1;
     const filename = `${username}-${imgVer}.png`;
     const file = await getCroppedImageFile(
@@ -189,6 +218,7 @@ function ProfileBuilder({ type }) {
         data: builderProfile,
         imageFile: profilePictureFile,
         bannerFile,
+        logoFile,
       }),
     )
       .unwrap()
@@ -216,7 +246,12 @@ function ProfileBuilder({ type }) {
 
       if (profile) {
         console.log(profile);
-        setBuilderProfile({ ...profile, blobUrl: null, bannerBlobUrl: null });
+        setBuilderProfile({
+          ...profile,
+          blobUrl: null,
+          bannerBlobUrl: null,
+          logoBlobUrl: null,
+        });
         setProfilePictureUrl(
           `https://images.heyitzme.com/${profile.profileImage}`,
         );
@@ -371,6 +406,8 @@ function ProfileBuilder({ type }) {
                   handleBannerSelect={handleBannerSelect}
                   bannerInputRef={bannerInputRef}
                   handleBannerFileChange={(e) => handlePhotoChange(e, "banner")}
+                  logoInputRef={logoInputRef}
+                  handleLogoFileChange={(e) => handlePhotoChange(e, "logo")}
                   showThemeList={showThemeList}
                   setShowThemeList={setShowThemeList}
                 />
@@ -432,8 +469,14 @@ function ProfileBuilder({ type }) {
           imageSrc={cropImageSrc}
           onCancel={handleCropCancel}
           onSave={handleCropSave}
-          aspect={cropTarget === "banner" ? bannerCropAspect : 1}
-          cropShape={cropTarget === "banner" ? "rect" : "round"}
+          aspect={
+            cropTarget === "banner"
+              ? bannerCropAspect
+              : cropTarget === "logo"
+                ? 3
+                : 1
+          }
+          cropShape={cropTarget === "photo" ? "round" : "rect"}
         />
       </Modal>
     </>

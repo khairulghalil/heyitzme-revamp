@@ -184,6 +184,15 @@
       }
     }
 
+    .logo-options {
+      grid-template-columns: minmax(150px, 220px);
+
+      .banner-upload {
+        background-position: center;
+        background-size: cover;
+      }
+    }
+
     label {
       font-weight: bold;
       font-size: 17px;

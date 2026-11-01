@@ -8,6 +8,8 @@ function ThemeCard({
   handleBannerSelect,
   bannerInputRef,
   handleBannerFileChange,
+  logoInputRef,
+  handleLogoFileChange,
   showThemeList = false,
   setShowThemeList,
 }) {
@@ -145,6 +147,34 @@ function ThemeCard({
                 ref={bannerInputRef}
                 className="d-none"
                 onChange={handleBannerFileChange}
+              />
+            </div>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Logo</Form.Label>
+            <div className="banner-options logo-options">
+              <button
+                type="button"
+                className={`banner-option banner-upload ${builderProfile?.logoImage ? "active" : ""}`}
+                style={
+                  builderProfile?.logoImage
+                    ? {
+                        backgroundImage: `url(${builderProfile.logoBlobUrl || `https://images.heyitzme.com/${builderProfile.logoImage}`})`,
+                      }
+                    : undefined
+                }
+                aria-label="Upload logo"
+                onClick={() => logoInputRef.current?.click()}
+              >
+                <i className="bi bi-camera-fill"></i>
+                <span>{builderProfile?.logoImage ? "Custom" : "Upload"}</span>
+              </button>
+              <input
+                type="file"
+                accept="image/*"
+                ref={logoInputRef}
+                className="d-none"
+                onChange={handleLogoFileChange}
               />
             </div>
           </Form.Group>
