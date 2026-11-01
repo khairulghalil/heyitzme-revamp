@@ -17,6 +17,8 @@ import {
   ProfileNotFound,
 } from "./components";
 
+import * as logo from "../../assets/img/logo";
+
 import "./profiles.scss";
 function Profiles({ previewData = null, backAction = null }) {
   const dispatch = useDispatch();
@@ -124,11 +126,11 @@ function Profiles({ previewData = null, backAction = null }) {
             </div>
           )}
 
-          <span
+          {/* <span
             className={`profile-header text-left ${previewData ? "d-none" : ""}`}
           >
             <Dropdown item={menuOptions} vertical />
-          </span>
+          </span> */}
 
           <div className="profile-wrapper">
             <div className="profile-card">
@@ -160,6 +162,16 @@ function Profiles({ previewData = null, backAction = null }) {
               <div
                 className={`profile-content text-center mt-3 ${previewData ? "pe-none" : ""}`}
               >
+                <div className="options-wrapper">
+                  <div className="logo-wrapper">
+                    <img
+                      src={logo.proton}
+                      className="logo img-fluid"
+                      alt="HeyItzMe"
+                    />
+                  </div>
+                  <Dropdown item={menuOptions} vertical />
+                </div>
                 <h2 id="name">{profileData.name}</h2>
                 <p id="bio">{profileData.bio}</p>
                 <SocialLink contact={profileData.contact} />
