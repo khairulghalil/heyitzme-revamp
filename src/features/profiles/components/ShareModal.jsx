@@ -18,7 +18,6 @@ function ShareModal({ profileUrl }) {
     <Offcanvas.Body className="share-body text-center">
       <div className="share-title d-flex flex-column align-items-center">
         <span>Your Digital Identity</span>
-        <h2>Meet. Scan.</h2>
         <h2>Stay Connected</h2>
         <p>Let's someone scan the code to instantly open your profile</p>
       </div>
