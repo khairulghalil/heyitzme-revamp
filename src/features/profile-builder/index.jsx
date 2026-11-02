@@ -66,8 +66,9 @@ function ProfileBuilder({ type }) {
   const isCustomBanner =
     !!bannerFile || (!!builderProfile?.bannerBg && !isDefaultBanner);
   const bannerPreset =
-    bannerThumbnail.find((banner) => banner.path === builderProfile?.bannerBg) ||
-    bannerThumbnail.find((banner) => banner.name === "Circuit");
+    bannerThumbnail.find(
+      (banner) => banner.path === builderProfile?.bannerBg,
+    ) || bannerThumbnail.find((banner) => banner.name === "Circuit");
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
