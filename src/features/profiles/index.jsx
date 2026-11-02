@@ -210,7 +210,7 @@ function Profiles({ previewData = null, backAction = null }) {
                 </p>
                 {profileData.description?.enable &&
                   profileData.description.item && (
-                    <p className="description mt-0">
+                    <p className="description mt-1">
                       {profileData.description.item}
                     </p>
                   )}
