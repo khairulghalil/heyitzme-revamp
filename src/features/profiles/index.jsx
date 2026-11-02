@@ -300,7 +300,7 @@ function Profiles({ previewData = null, backAction = null }) {
             show={showShareModal}
             onHide={() => setShowShareModal(false)}
             placement="end"
-            className="share-offcanvas"
+            className="share-offcanvas w-100"
           >
             <Offcanvas.Header closeButton closeVariant="white" />
             <ShareModal
