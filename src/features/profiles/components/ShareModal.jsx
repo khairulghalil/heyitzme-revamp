@@ -4,7 +4,7 @@ import { useToast } from "../../../components";
 import { copyToClipboard } from "../../../utils";
 import * as logo from "../../../assets/img/logo";
 
-function ShareModal({ profileUrl }) {
+function ShareModal({ profileUrl, profilePictureUrl, profileName }) {
   const { showToast } = useToast();
   const handleCopyLink = async () => {
     const copied = await copyToClipboard(profileUrl);
@@ -16,34 +16,64 @@ function ShareModal({ profileUrl }) {
 
   return (
     <Offcanvas.Body className="share-body text-center">
-      <div className="share-title d-flex flex-column align-items-center">
-        <span>Your Digital Identity</span>
-        <h2>Stay Connected</h2>
-        <p>Let's someone scan the code to instantly open your profile</p>
+      <div className="share-title d-flex flex-column align-items-center mb-3">
+        <span>Stay Connected</span>
+        <img className="share-logo" src={logo.logo} alt="HeyItzMe" />
+        <p>
+          It's just one scan away! Scan the QR code to instantly connect with
+          me.
+        </p>
       </div>
-      <QRCodeSVG
-        id="qrcode"
-        value={profileUrl}
-        size={290}
-        imageSettings={{
-          src: logo.icon,
-          height: 40,
-          width: 40,
-          excavate: true,
-        }}
-      />
-      <div className="share-footer d-flex flex-column align-items-center">
+      <div className="qr-code-container">
+        <QRCodeSVG
+          id="qrcode"
+          value={profileUrl}
+          size={290}
+          imageSettings={{
+            src: logo.icon,
+            height: 40,
+            width: 40,
+            excavate: true,
+          }}
+        />
+        <div className="qr-footer d-flex flex-column">
+          <div className="qr-link-row d-flex align-items-center w-100">
+            <img
+              className="img-fluid qr-profile-picture"
+              src={profilePictureUrl || undefined}
+              alt=""
+              aria-hidden="true"
+            />
+            <div className="qr-link-details p-0 d-flex flex-column align-items-start justify-content-start text-start">
+              <p className="profile-link-label">{profileName}</p>
+              <span id="profile-url">
+                {profileUrl.replace(/^https?:\/\//, "")}
+              </span>
+            </div>
+            <div className="qr-link-copy p-0 d-flex align-items-center ms-auto">
+              <button
+                className="btn btn-primary copy profile-theme"
+                onClick={() => handleCopyLink()}
+              >
+                <i className="bi bi-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="share-footer d-flex flex-column align-items-center mt-4">
         <div className="row w-100 px-1">
           <div className="col-8 p-0 d-flex flex-column align-items-start justify-content-center">
-            <p className="profile-link-label">Profile Link</p>
-            <span id="profile-url">{profileUrl}</span>
+            <p className="profile-link-label">Save and share</p>
+            <span id="profile-url">Download this QR for easy sharing</span>
           </div>
           <div className="col-4 p-0 d-flex align-items-center justify-content-end">
             <button
               className="btn btn-primary share profile-theme"
-              onClick={() => handleCopyLink()}
+              onClick={() => null}
             >
-              Copy
+              Save
             </button>
           </div>
         </div>

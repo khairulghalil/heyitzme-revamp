@@ -327,6 +327,7 @@
       var(--primary-color),
       color-mix(in srgb, var(--primary-color) 40%, black)
     );
+    padding-top: 5px;
 
     .share-title {
       text-align: center;
@@ -344,17 +345,89 @@
         margin-bottom: 5px;
       }
 
-      h2 {
-        font-size: 30px;
-        font-weight: 700;
-        color: white;
-        margin: 0;
+      .share-logo {
+        display: block;
+        width: min(220px, 100%);
+        height: auto;
+        object-fit: contain;
       }
 
       p {
         color: rgb(184, 184, 184);
         font-size: 15px;
         margin: 10px 0;
+      }
+    }
+
+    .qr-code-container {
+      width: fit-content;
+      margin: auto;
+
+      #qrcode {
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        background-color: white;
+        border: 10px solid white;
+      }
+
+      .qr-footer {
+        background-color: rgb(242, 242, 242) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0 0 10px 10px;
+        width: 100%;
+        margin: auto;
+        padding: 10px 15px;
+
+        .qr-profile-picture {
+          flex: 0 0 auto;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 0.5px solid #ccc;
+          margin-right: 10px;
+          box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-link-details {
+          min-width: 0;
+          margin-left: 0;
+        }
+
+        .qr-link-details span {
+          overflow-wrap: anywhere;
+        }
+
+        button.copy {
+          min-width: 0 !important;
+          width: fit-content;
+          height: fit-content;
+          padding: 0 !important;
+          display: inline-flex;
+          align-items: center;
+          justify-content: flex-end;
+          background: transparent !important;
+          color: black;
+
+          i {
+            font-size: 16px;
+            background: transparent !important;
+          }
+        }
+
+        p {
+          color: var(--primary-app-color);
+          margin-bottom: 1px;
+          font-size: 12px;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+
+        span {
+          color: black;
+          font-size: 13px;
+        }
       }
     }
 
@@ -368,7 +441,7 @@
       button.share {
         border-radius: 5px !important;
         min-width: fit-content !important;
-        padding: 10px 15px !important;
+        padding: 10px 20px !important;
         margin: 0 !important;
       }
 
@@ -384,16 +457,6 @@
         color: white;
         font-size: 13px;
       }
-    }
-
-    #qrcode {
-      padding: 10px;
-      border-radius: 10px;
-      margin-top: 20px;
-      box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.2);
-      background-color: white;
-      border: 10px solid white;
-      margin-bottom: 30px;
     }
   }
 }

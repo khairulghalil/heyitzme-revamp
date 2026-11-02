@@ -303,7 +303,11 @@ function Profiles({ previewData = null, backAction = null }) {
             className="share-offcanvas"
           >
             <Offcanvas.Header closeButton closeVariant="white" />
-            <ShareModal profileUrl={profileUrl || null} />
+            <ShareModal
+              profileUrl={profileUrl || null}
+              profilePictureUrl={profilePictureUrl}
+              profileName={profileData.name}
+            />
           </Offcanvas>
         </>
       ) : (
